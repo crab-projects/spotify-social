@@ -4,8 +4,10 @@
   "description": "A web app that revolutionizes the way you and your friends connect over music.",
   "main": "index.js",
   "scripts": {
-    "client": "cd client && npm start", 
-    "server": "node server", 
+    "client": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "server": "node server",
+    "start": "concurrently \"npm run server\" \"npm run build\"",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +22,7 @@
   },
   "homepage": "https://github.com/crab-projects/spotify-social#readme",
   "dependencies": {
-    "concurrently": "^6.0.0"
+    "concurrently": "^6.0.0",
+    "express": "^4.17.1"
   }
 }
