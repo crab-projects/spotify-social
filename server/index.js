@@ -4,7 +4,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "express", "https"], factory);
+        define(["require", "exports", "express", "request"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -16,37 +16,49 @@
     //const app = express();
     //app.use(express.json());
     //app.use(cors());
+    var request = require("request"); // "Request" library
     // Serve static files from the React app
     app.use(express.static(path.join(__dirname, '../client/build')));
+    app.get('/api/spotifytest', function (req, res) {
+        // your application requests authorization
+        var authOptions = {
+            url: 'https://accounts.spotify.com/api/token',
+            headers: {
+                'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+            },
+            form: {
+                grant_type: 'client_credentials'
+            },
+            json: true
+        };
+        request.post(authOptions, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                // use the access token to access the Spotify Web API
+                var token = body.access_token;
+                var options = {
+                    url: 'https://api.spotify.com/v1/users/shidoarichimorin',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    json: true
+                };
+                request.get(options, function (error, response, body) {
+                    console.log(body);
+                    res.send({
+                        message: 'It worked!',
+                        data: body
+                    });
+                });
+            }
+        });
+    });
+    var client_id = 'bfddae141be44fdb893ee75e3dfd1ed2'; // Your client id
+    var client_secret = '5ceb681182ae43cf8ebdd99defcb755b'; // Your secret
     app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, '../client/build/index.html'));
     });
     var port = process.env.PORT || 5000 || '0.0.0.0';
     app.listen(port);
-    /* Load the HTTP library */
-    var https = require("https");
-    /* Create an HTTP server to handle responses */
-    // http.createServer(function(request, response) {
-    //   response.writeHead(200, {"Content-Type": "text/plain"});
-    //   response.write("Hello World");
-    //   response.end();
-    // }).listen(8888);
-    var options = {
-        hostname: 'whatever.com',
-        port: 443,
-        path: '/todos',
-        method: 'GET'
-    };
-    var req = https.request(options, function (res) {
-        console.log("statusCode: " + res.statusCode);
-        res.on('data', function (d) {
-            process.stdout.write(d);
-        });
-    });
-    req.on('error', function (error) {
-        console.error(error);
-    });
-    req.end();
     console.log("spotify-social listening on " + port);
 });
 //# sourceMappingURL=index.js.map
