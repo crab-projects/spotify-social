@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-// Some of these defaults were taken from my personal website: 
+// Some of these defaults were taken from my personal website:
 // https://github.com/rustom-ichhaporia/gatsby-fresh
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -66,10 +66,10 @@ const GlobalStyle = createGlobalStyle`
         color: var(--accent-color);
       }
       :hover {
-        color: var(--background-color);
+        // color: var(--background-color);
       }
       :active {
-        color: var(--background-color);
+        // color: var(--background-color);
       }
     }
   }

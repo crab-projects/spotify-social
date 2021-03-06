@@ -8,12 +8,7 @@ function App() {
     <main>
       <Switch>
         <Route path="/" component={Home} exact />
-        <Route path="/make" component={MakeMeeting} />
-        <Route path="/meetingLogin/:meetingID" component={MeetingLogin} />
-        <Route
-          path="/meeting/:meetingID/password/:password"
-          component={Meeting}
-        />
+        <Route path="/playlist" component={PlaylistPage} />
       </Switch>
     </main>
   );
