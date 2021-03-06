@@ -1,0 +1,19 @@
+{
+  "name": "spotify-social",
+  "version": "1.0.0",
+  "description": "A web app that revolutionizes the way you and your friends connect over music.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crab-projects/spotify-social.git"
+  },
+  "author": "Alec Chen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crab-projects/spotify-social/issues"
+  },
+  "homepage": "https://github.com/crab-projects/spotify-social#readme"
+}
