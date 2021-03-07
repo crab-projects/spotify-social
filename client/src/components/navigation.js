@@ -11,7 +11,7 @@ const NavBackground = styled.div`
   left: 0px;
   height: 100vh;
   width: ${theme.navigationWidth};
-  background: var(--navigation-color);
+  background: ${theme.colors.black};
 
   padding: 50px 0px;
   box-sizing: border-box;

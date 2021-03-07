@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { theme } from 'styles';
 
 // Some of these defaults were taken from my personal website:
 // https://github.com/rustom-ichhaporia/gatsby-fresh
@@ -18,29 +19,14 @@ const GlobalStyle = createGlobalStyle`
     --grey-1: #151515;
     --black: #000000;
     --dark-blue: #001824;
-
-    --background-color: var(--grey-1);
-    --navigation-color: var(--black);
-    --background-light-color: var(--grey-2);
-    --text-color: var(--grey-4);
-    --text-light-color: var(--grey-4);
-    --accent-color: var(--peach);
-    --accent-dark-color: var(--dark-peach);
-    --sans-font: Roboto, sans-serif;
-    --mono-font: Roboto Mono, monospace;
   }
-  // html {
-  //   cursor: none;
-  //   a:link {
-  //     cursor: none;
-  //   }
-  // }
+
   body {
     margin: 0;
     padding: 0;    
-    background: var(--background-color);
-    font-family: var(--sans-font);
-    color: var(--grey-3);
+    background: ${theme.colors.grey1};
+    font-family: ${theme.sansFonts};
+    color: ${theme.colors.grey3};
     font-size: 20px;
     line-height: 1.5em;
     * {
@@ -61,16 +47,16 @@ const GlobalStyle = createGlobalStyle`
     a {
       text-decoration: none;
       :link {
-        color: var(--grey-3);
+        color: ${theme.colors.grey3};
       }
       :visited {
-        color: var(--grey-3);
+        color: ${theme.colors.grey3};
       }
       :hover {
-        color: var(--white);
+        color: ${theme.colors.white};
       }
       :active {
-        color: var(--white);
+        color: ${theme.colors.grey4};
       }
     }
   }
