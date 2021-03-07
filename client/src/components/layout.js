@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { GlobalStyle, theme } from '../styles';
 import { Navigation } from 'components';
 
-const PageWrapper = styled.div`
-`;
+const PageWrapper = styled.div``;
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -14,7 +13,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-
 `;
 
 export default function Layout({ children }) {

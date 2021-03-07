@@ -1,5 +1,5 @@
 const theme = {
-    navigationWidth: '200px',
+  navigationWidth: '200px',
 };
 
 export default theme;
