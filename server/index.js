@@ -11,19 +11,16 @@
     Object.defineProperty(exports, "__esModule", { value: true });
     require('dotenv').config({ path: require('find-config')('.env') });
     var express = require("express");
-    var path = require('path');
     //const cors = require('cors');
     var app = express();
-    //const app = express();
-    //app.use(express.json());
-    //app.use(cors());
+    var path = require('path');
     var axios = require('axios');
     // Serve static files from the React app
     app.use(express.static(path.join(__dirname, '../client/build')));
+    // Client-credential authorization
     var client_id = process.env.SPOTIFY_DEV_ID; // Your client id
     var client_secret = process.env.SPOTIFY_DEV_SECRET; // Your secret
-    console.log(client_id);
-    app.get('/api/spotifytest', function (req, res) {
+    app.get('/api/defaultProfile', function (req, res) {
         axios({
             method: 'post',
             url: 'https://accounts.spotify.com/api/token',
@@ -38,6 +35,17 @@
         })
             .then(function (response) {
             console.log(response);
+            var profileData = {
+                profileImageUrl: '',
+                displayName: '',
+                username: '',
+                numPlaylists: 0,
+                numFollowers: 0,
+                numFollowing: 0,
+                graphData: {},
+                artists: [],
+                playlists: []
+            };
             return Promise.all([axios({
                     method: 'get',
                     url: 'https://api.spotify.com/v1/users/shidoarichimorin',
@@ -45,10 +53,10 @@
                         'Authorization': 'Bearer ' + response.data.access_token,
                     },
                     json: true
-                }), response.data.access_token]);
+                }), profileData, response.data.access_token]);
         })
             .then(function (_a) {
-            var response = _a[0], access_token = _a[1];
+            var response = _a[0], profileData = _a[1], access_token = _a[2];
             console.log(response);
             var user_id = response.data.id;
             return Promise.all([axios({
@@ -58,10 +66,10 @@
                         'Authorization': 'Bearer ' + access_token,
                     },
                     json: true
-                }), access_token]);
+                }), profileData, access_token]);
         })
             .then(function (_a) {
-            var response = _a[0], access_token = _a[1];
+            var response = _a[0], profileData = _a[1], access_token = _a[2];
             var playlists = response.data.items;
             if (playlists.length > 1) {
                 var playlist_id = playlists[1].id;
@@ -72,7 +80,7 @@
                             'Authorization': 'Bearer ' + access_token,
                         },
                         json: true
-                    }), access_token]);
+                    }), profileData, access_token]);
             }
             else {
                 res.send({
@@ -82,7 +90,7 @@
             }
         })
             .then(function (_a) {
-            var response = _a[0], access_token = _a[1];
+            var response = _a[0], profileData = _a[1], access_token = _a[2];
             var tracks = response.data.items;
             var returned = false;
             if (tracks) {
@@ -108,7 +116,8 @@
                                 'Authorization': 'Bearer ' + access_token,
                             },
                             json: true
-                        })
+                        }),
+                        profileData
                     ]);
                 }
             }
@@ -119,10 +128,11 @@
                 });
             }
         })
-            .then(axios.spread(function (track_res, audio_feat_res) {
+            .then(axios.spread(function (track_res, audio_feat_res, profileData) {
             console.log(track_res);
             console.log("-----");
             console.log(audio_feat_res);
+            console.log(profileData);
             res.send({
                 message: 'It worked!',
                 track_data: track_res.data,
