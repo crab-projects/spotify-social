@@ -25,6 +25,7 @@
   "homepage": "https://github.com/crab-projects/spotify-social#readme",
   "dependencies": {
     "@types/jest": "^26.0.20",
+    "@types/request": "^2.48.5",
     "concurrently": "^6.0.0",
     "express": "^4.17.1",
     "react-router-dom": "^5.2.0"
