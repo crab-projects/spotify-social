@@ -172,11 +172,7 @@ app.get('/api/defaultProfile', (req, res) => {
     console.log("-----");
     console.log(audio_feat_res);
     console.log(profileData);
-    res.send({
-      message: 'It worked!',
-      track_data: track_res.data,
-      audio_feat_data: audio_feat_res.data
-    });
+    res.send(profileData);
   }))
   .catch((error: AxiosError) => {
     console.log(error);
