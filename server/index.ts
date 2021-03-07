@@ -31,6 +31,7 @@ app.get('/api/spotifytest', (req, res) => {
       json: true
     })
     .then((response: any) => {
+
       console.log(response);
       return Promise.all([axios({
         method: 'get',
@@ -42,23 +43,93 @@ app.get('/api/spotifytest', (req, res) => {
       }), response.data.access_token]);
     })
     .then(([response, access_token]: [any, any]) => {
+
       console.log(response);
       const user_id = response.data.id;
-      return axios({
+      return Promise.all([axios({
         method: 'get',
         url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
         headers: { 
           'Authorization': 'Bearer ' + access_token,
         },
         json: true
-      });
+      }), access_token]);
     })
-    .then((response: any) => {
+    .then(([response, access_token]: [any, any]) => {
+
+      const playlists = response.data.items;
+      if (playlists.length > 1) {
+        const playlist_id = playlists[1].id;
+        return Promise.all([axios({
+          method: 'get',
+          url: 'https://api.spotify.com/v1/playlists/' + playlist_id + '/tracks',
+          headers: {
+            'Authorization': 'Bearer ' + access_token,
+          },
+          json: true
+        }), access_token]);
+      } else {
+
+        res.send({
+          message: 'It worked!',
+          data: response.data
+        });
+      }
+    })
+    .then(([response, access_token]: [any, any]) => {
+      
+      const tracks = response.data.items;
+      let returned = false;
+      if (tracks) {
+        const track = tracks[0];
+        console.log('TRACK ID: ');
+        console.log(track);
+        const track_id = track.track.id;
+        if (track_id) {
+          returned = true;
+
+          return axios.all([
+            axios({
+              method: 'get',
+              url: 'https://api.spotify.com/v1/tracks/' + track_id,
+              headers: {
+                'Authorization': 'Bearer ' + access_token,
+              },
+              json: true
+            }),
+            axios({
+              method: 'get',
+              url: 'https://api.spotify.com/v1/audio-features/' + track_id,
+              headers: {
+                'Authorization': 'Bearer ' + access_token,
+              },
+              json: true
+            })
+          ]);
+
+        }
+      }
+
+      if (!returned) {
+        res.send({
+          message: 'It worked!',
+          data: response.data
+        });
+      }
+
+    })
+    .then(axios.spread((track_res: any, audio_feat_res: any) => {
+
+      console.log(track_res);
+      console.log("-----");
+      console.log(audio_feat_res);
+
       res.send({
         message: 'It worked!',
-        data: response.data
+        track_data: track_res.data,
+        audio_feat_data: audio_feat_res.data
       });
-    })
+    }))
     .catch((error: AxiosError) => {
       console.log(error);
     });

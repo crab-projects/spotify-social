@@ -49,21 +49,84 @@
             var response = _a[0], access_token = _a[1];
             console.log(response);
             var user_id = response.data.id;
-            return axios({
-                method: 'get',
-                url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
-                headers: {
-                    'Authorization': 'Bearer ' + access_token,
-                },
-                json: true
-            });
+            return Promise.all([axios({
+                    method: 'get',
+                    url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
+                    headers: {
+                        'Authorization': 'Bearer ' + access_token,
+                    },
+                    json: true
+                }), access_token]);
         })
-            .then(function (response) {
+            .then(function (_a) {
+            var response = _a[0], access_token = _a[1];
+            var playlists = response.data.items;
+            if (playlists.length > 1) {
+                var playlist_id = playlists[1].id;
+                return Promise.all([axios({
+                        method: 'get',
+                        url: 'https://api.spotify.com/v1/playlists/' + playlist_id + '/tracks',
+                        headers: {
+                            'Authorization': 'Bearer ' + access_token,
+                        },
+                        json: true
+                    }), access_token]);
+            }
+            else {
+                res.send({
+                    message: 'It worked!',
+                    data: response.data
+                });
+            }
+        })
+            .then(function (_a) {
+            var response = _a[0], access_token = _a[1];
+            var tracks = response.data.items;
+            var returned = false;
+            if (tracks) {
+                var track = tracks[0];
+                console.log('TRACK ID: ');
+                console.log(track);
+                var track_id = track.track.id;
+                if (track_id) {
+                    returned = true;
+                    return axios.all([
+                        axios({
+                            method: 'get',
+                            url: 'https://api.spotify.com/v1/tracks/' + track_id,
+                            headers: {
+                                'Authorization': 'Bearer ' + access_token,
+                            },
+                            json: true
+                        }),
+                        axios({
+                            method: 'get',
+                            url: 'https://api.spotify.com/v1/audio-features/' + track_id,
+                            headers: {
+                                'Authorization': 'Bearer ' + access_token,
+                            },
+                            json: true
+                        })
+                    ]);
+                }
+            }
+            if (!returned) {
+                res.send({
+                    message: 'It worked!',
+                    data: response.data
+                });
+            }
+        })
+            .then(axios.spread(function (track_res, audio_feat_res) {
+            console.log(track_res);
+            console.log("-----");
+            console.log(audio_feat_res);
             res.send({
                 message: 'It worked!',
-                data: response.data
+                track_data: track_res.data,
+                audio_feat_data: audio_feat_res.data
             });
-        })
+        }))
             .catch(function (error) {
             console.log(error);
         });
