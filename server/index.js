@@ -4,7 +4,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "express", "request"], factory);
+        define(["require", "exports", "express"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -16,42 +16,43 @@
     //const app = express();
     //app.use(express.json());
     //app.use(cors());
-    var request = require("request"); // "Request" library
+    var axios = require('axios');
     // Serve static files from the React app
     app.use(express.static(path.join(__dirname, '../client/build')));
-    var client_id = ''; // Your client id
-    var client_secret = ''; // Your secret
+    var client_id = 'bfddae141be44fdb893ee75e3dfd1ed2'; // Your client id
+    var client_secret = '5ceb681182ae43cf8ebdd99defcb755b'; // Your secret
     app.get('/api/spotifytest', function (req, res) {
-        // your application requests authorization
-        var authOptions = {
+        axios({
+            method: 'post',
             url: 'https://accounts.spotify.com/api/token',
-            headers: {
-                'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-            },
-            form: {
+            params: {
                 grant_type: 'client_credentials'
             },
+            headers: {
+                'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')),
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
             json: true
-        };
-        request.post(authOptions, function (error, response, body) {
-            if (!error && response.statusCode === 200) {
-                // use the access token to access the Spotify Web API
-                var token = body.access_token;
-                var options = {
-                    url: 'https://api.spotify.com/v1/users/shidoarichimorin',
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    },
-                    json: true
-                };
-                request.get(options, function (error, response, body) {
-                    console.log(body);
-                    res.send({
-                        message: 'It worked!',
-                        data: body
-                    });
-                });
-            }
+        })
+            .then(function (response) {
+            console.log(response);
+            return axios({
+                method: 'get',
+                url: 'https://api.spotify.com/v1/users/shidoarichimorin',
+                headers: {
+                    'Authorization': 'Bearer ' + response.data.access_token,
+                },
+                json: true
+            });
+        }).then(function (response) {
+            console.log(response);
+            res.send({
+                message: 'It worked!',
+                data: response.data
+            });
+        })
+            .catch(function (error) {
+            console.log(error);
         });
     });
     app.get('*', function (req, res) {
