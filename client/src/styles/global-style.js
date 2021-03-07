@@ -18,7 +18,9 @@ const GlobalStyle = createGlobalStyle`
     --grey-1: #151515;
     --black: #000000;
     --dark-blue: #001824;
-    --background-color: var(--dark-blue);
+
+    --background-color: var(--grey-1);
+    --navigation-color: var(--black);
     --background-light-color: var(--grey-2);
     --text-color: var(--grey-4);
     --text-light-color: var(--grey-4);
@@ -35,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
   // }
   body {
     margin: 0;
-    padding: 0;
+    padding: 0;    
     background: var(--background-color);
     font-family: var(--sans-font), Open-Sans, sans-serif;
     color: var(--text-color);
@@ -60,16 +62,16 @@ const GlobalStyle = createGlobalStyle`
     a {
       text-decoration: none;
       :link {
-        color: var(--accent-color);
+        color: var(--grey-3);
       }
       :visited {
-        color: var(--accent-color);
+        color: var(--grey-3);
       }
       :hover {
-        // color: var(--background-color);
+        // color: var(--white);
       }
       :active {
-        // color: var(--background-color);
+        // color: var(--white);
       }
     }
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { Home, PlaylistPage, NotFound } from './pages';
+import { Home, PlaylistPage, NotFound } from 'pages';
 
 function App() {
   return (
