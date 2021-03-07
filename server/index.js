@@ -20,7 +20,7 @@
     // Serve static files from the React app
     app.use(express.static(path.join(__dirname, '../client/build')));
     var client_id = process.env.SPOTIFY_DEV_ID; // Your client id
-    var client_secret = env.SPOTIFY_DEV_SECRET; // Your secret
+    var client_secret = process.env.SPOTIFY_DEV_SECRET; // Your secret
     app.get('/api/spotifytest', function (req, res) {
         // your application requests authorization
         var authOptions = {
