@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { theme } from 'styles';
+import theme from 'styles/theme';
 
 // Some of these defaults were taken from my personal website:
 // https://github.com/rustom-ichhaporia/gatsby-fresh
