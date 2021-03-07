@@ -11,7 +11,7 @@ const NavBackground = styled.div`
   left: 0px;
   height: 100vh;
   width: ${theme.navigationWidth};
-  background: var(--navigation-color);
+  background: ${theme.colors.black};
 
   padding: 50px 0px;
   box-sizing: border-box;
@@ -60,6 +60,10 @@ export default function Navigation() {
 
         <Link to="something">
           <PageLink>Error page</PageLink>
+        </Link>
+
+        <Link to="something">
+          <PageLink>Something else</PageLink>
         </Link>
       </PageLinks>
 
