@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { Home, PlaylistPage } from './pages/index';
+import { Home, PlaylistPage, NotFound } from 'pages';
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
       <Switch>
         <Route path="/" component={Home} exact />
         <Route path="/playlist" component={PlaylistPage} />
+        <Route component={NotFound} />
       </Switch>
     </main>
   );
