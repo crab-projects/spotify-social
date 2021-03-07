@@ -19,6 +19,8 @@
     var request = require("request"); // "Request" library
     // Serve static files from the React app
     app.use(express.static(path.join(__dirname, '../client/build')));
+    var client_id = ''; // Your client id
+    var client_secret = ''; // Your secret
     app.get('/api/spotifytest', function (req, res) {
         // your application requests authorization
         var authOptions = {
@@ -52,8 +54,6 @@
             }
         });
     });
-    var client_id = 'bfddae141be44fdb893ee75e3dfd1ed2'; // Your client id
-    var client_secret = '5ceb681182ae43cf8ebdd99defcb755b'; // Your secret
     app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, '../client/build/index.html'));
     });
