@@ -39,15 +39,17 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;    
     background: var(--background-color);
-    font-family: var(--sans-font), Open-Sans, sans-serif;
-    color: var(--text-color);
-    font-size: 14px;
+    font-family: var(--sans-font);
+    color: var(--grey-3);
+    font-size: 20px;
     line-height: 1.5em;
     * {
-      font-weight: 200;
+      font-weight: 500;
     }
+
     // overflow: hidden;
     overflow-y: scroll;
+
     // Hide scrollbar in multiple browsers
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -55,10 +57,7 @@ const GlobalStyle = createGlobalStyle`
       width: 0;
       height: 0;
     }
-    *::selection {
-      color: var(--background-color);
-      background-color: var(--accent-color);
-    }
+
     a {
       text-decoration: none;
       :link {
@@ -68,10 +67,10 @@ const GlobalStyle = createGlobalStyle`
         color: var(--grey-3);
       }
       :hover {
-        // color: var(--white);
+        color: var(--white);
       }
       :active {
-        // color: var(--white);
+        color: var(--white);
       }
     }
   }

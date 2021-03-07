@@ -61,6 +61,10 @@ export default function Navigation() {
         <Link to="something">
           <PageLink>Error page</PageLink>
         </Link>
+
+        <Link to="something">
+          <PageLink>Something else</PageLink>
+        </Link>
       </PageLinks>
 
       <ReferenceLinks>
