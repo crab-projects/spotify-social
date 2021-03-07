@@ -36,16 +36,29 @@
         })
             .then(function (response) {
             console.log(response);
+            return Promise.all([axios({
+                    method: 'get',
+                    url: 'https://api.spotify.com/v1/users/shidoarichimorin',
+                    headers: {
+                        'Authorization': 'Bearer ' + response.data.access_token,
+                    },
+                    json: true
+                }), response.data.access_token]);
+        })
+            .then(function (_a) {
+            var response = _a[0], access_token = _a[1];
+            console.log(response);
+            var user_id = response.data.id;
             return axios({
                 method: 'get',
-                url: 'https://api.spotify.com/v1/users/shidoarichimorin',
+                url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
                 headers: {
-                    'Authorization': 'Bearer ' + response.data.access_token,
+                    'Authorization': 'Bearer ' + access_token,
                 },
                 json: true
             });
-        }).then(function (response) {
-            console.log(response);
+        })
+            .then(function (response) {
             res.send({
                 message: 'It worked!',
                 data: response.data

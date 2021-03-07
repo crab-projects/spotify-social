@@ -32,16 +32,28 @@ app.get('/api/spotifytest', (req, res) => {
     })
     .then((response: any) => {
       console.log(response);
-      return axios({
+      return Promise.all([axios({
         method: 'get',
         url: 'https://api.spotify.com/v1/users/shidoarichimorin',
         headers: { 
           'Authorization': 'Bearer ' + response.data.access_token,
         },
         json: true
-      });
-    }).then((response: any) => {
+      }), response.data.access_token]);
+    })
+    .then(([response, access_token]: [any, any]) => {
       console.log(response);
+      const user_id = response.data.id;
+      return axios({
+        method: 'get',
+        url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
+        headers: { 
+          'Authorization': 'Bearer ' + access_token,
+        },
+        json: true
+      });
+    })
+    .then((response: any) => {
       res.send({
         message: 'It worked!',
         data: response.data
