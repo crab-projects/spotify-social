@@ -1,3 +1,5 @@
+require('dotenv').config({ path: require('find-config')('.env') });
+
 import express = require('express');
 import { appendFileSync } from 'node:fs';
 const path = require('path');
@@ -12,9 +14,10 @@ import { AxiosResponse, AxiosError } from 'axios';
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-var client_id = 'bfddae141be44fdb893ee75e3dfd1ed2'; // Your client id
-var client_secret = '5ceb681182ae43cf8ebdd99defcb755b'; // Your secret
+var client_id = process.env.SPOTIFY_DEV_ID; // Your client id
+var client_secret = process.env.SPOTIFY_DEV_SECRET; // Your secret
 
+console.log(client_id);
 
 app.get('/api/spotifytest', (req, res) => {
 
@@ -142,7 +145,5 @@ app.get('*', (req, res) => {
 
 const port = process.env.PORT || 5000 || '0.0.0.0';
 app.listen(port);
-
-
 
 console.log(`spotify-social listening on ${port}`);

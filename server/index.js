@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    require('dotenv').config({ path: require('find-config')('.env') });
     var express = require("express");
     var path = require('path');
     //const cors = require('cors');
@@ -19,8 +20,9 @@
     var axios = require('axios');
     // Serve static files from the React app
     app.use(express.static(path.join(__dirname, '../client/build')));
-    var client_id = 'bfddae141be44fdb893ee75e3dfd1ed2'; // Your client id
-    var client_secret = '5ceb681182ae43cf8ebdd99defcb755b'; // Your secret
+    var client_id = process.env.SPOTIFY_DEV_ID; // Your client id
+    var client_secret = process.env.SPOTIFY_DEV_SECRET; // Your secret
+    console.log(client_id);
     app.get('/api/spotifytest', function (req, res) {
         axios({
             method: 'post',

@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import theme from 'styles/theme';
 
 // Some of these defaults were taken from my personal website:
 // https://github.com/rustom-ichhaporia/gatsby-fresh
@@ -18,34 +19,23 @@ const GlobalStyle = createGlobalStyle`
     --grey-1: #151515;
     --black: #000000;
     --dark-blue: #001824;
-    --background-color: var(--dark-blue);
-    --background-light-color: var(--grey-2);
-    --text-color: var(--grey-4);
-    --text-light-color: var(--grey-4);
-    --accent-color: var(--peach);
-    --accent-dark-color: var(--dark-peach);
-    --sans-font: Roboto, sans-serif;
-    --mono-font: Roboto Mono, monospace;
   }
-  // html {
-  //   cursor: none;
-  //   a:link {
-  //     cursor: none;
-  //   }
-  // }
+
   body {
     margin: 0;
-    padding: 0;
-    background: var(--background-color);
-    font-family: var(--sans-font), Open-Sans, sans-serif;
-    color: var(--text-color);
-    font-size: 14px;
+    padding: 0;    
+    background: ${theme.colors.grey1};
+    font-family: ${theme.sansFonts};
+    color: ${theme.colors.grey3};
+    font-size: 20px;
     line-height: 1.5em;
     * {
-      font-weight: 200;
+      font-weight: 500;
     }
+
     // overflow: hidden;
     overflow-y: scroll;
+
     // Hide scrollbar in multiple browsers
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -53,23 +43,20 @@ const GlobalStyle = createGlobalStyle`
       width: 0;
       height: 0;
     }
-    *::selection {
-      color: var(--background-color);
-      background-color: var(--accent-color);
-    }
+
     a {
       text-decoration: none;
       :link {
-        color: var(--accent-color);
+        color: ${theme.colors.grey3};
       }
       :visited {
-        color: var(--accent-color);
+        color: ${theme.colors.grey3};
       }
       :hover {
-        // color: var(--background-color);
+        color: ${theme.colors.white};
       }
       :active {
-        // color: var(--background-color);
+        color: ${theme.colors.grey4};
       }
     }
   }
