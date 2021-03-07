@@ -11,8 +11,8 @@ import request = require('request'); // "Request" library
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-var client_id = ''; // Your client id
-var client_secret = ''; // Your secret
+var client_id = process.env.SPOTIFY_DEV_ID; // Your client id
+var client_secret = process.env.SPOTIFY_DEV_SECRET; // Your secret
 
 app.get('/api/spotifytest', (req, res) => {
 
