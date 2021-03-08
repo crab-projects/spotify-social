@@ -11,8 +11,9 @@
     Object.defineProperty(exports, "__esModule", { value: true });
     require('dotenv').config({ path: require('find-config')('.env') });
     var express = require("express");
-    //const cors = require('cors');
+    var cors = require('cors');
     var app = express();
+    app.use(cors());
     var path = require('path');
     var axios = require('axios');
     // Serve static files from the React app
