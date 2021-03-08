@@ -15,12 +15,23 @@ const Wrapper = styled.div`
   box-sizing: border-box;
 `;
 
+const WrapperFade = styled.div`
+  height: 200px;
+  background-image: linear-gradient(
+    to bottom,
+    ${theme.colors.grey2},
+    ${theme.colors.grey1}
+  );
+`;
+
 export default function Layout({ children }) {
   return (
     <PageWrapper>
       <GlobalStyle />
-      <Navigation />
-      <Wrapper>{children}</Wrapper>
+      <WrapperFade>
+        <Navigation />
+        <Wrapper>{children}</Wrapper>
+      </WrapperFade>
     </PageWrapper>
   );
 }
