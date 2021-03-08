@@ -20,6 +20,7 @@ const TitleSection = styled.div`
 const ProfilePicture = styled.img`
   width: 200px;
   float: left;
+  border-radius: 300px;
 `;
 
 const DisplayName = styled.p`

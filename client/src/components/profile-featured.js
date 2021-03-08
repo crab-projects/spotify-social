@@ -33,6 +33,7 @@ const ArtistPicture = styled.img`
   width: 60px;
   height: 60px;
   float: left;
+  border-radius: 300px;
 `;
 
 const ArtistNameBox = styled.div`
@@ -54,7 +55,7 @@ export default function ProfileFeatured({ data }) {
           height: '400px',
           float: 'left',
           paddingRight: '100px',
-        }}
+        }} data={data}
       />
       <TopArtists>
         <TopArtistsTitle>Top Artists</TopArtistsTitle>
