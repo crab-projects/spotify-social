@@ -40,14 +40,15 @@ margin: 0;
 
 `;
 
-export default function Profile() {
+export default function Profile({data}) {
+  console.log(data);
   return (
     <ProfileWrapper>
       <HeaderSection>
         <ProfilePic src={logoPic} />
         <TitleSection>
           <TitleText>
-            PROFILE
+            PROFILE {data.numFollowers}
           </TitleText>
           <DisplayName>Rustom Ichhaporia</DisplayName>
           <TitleDetails>

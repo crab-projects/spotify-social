@@ -1,8 +1,9 @@
 require('dotenv').config({ path: require('find-config')('.env') });
 
 import express = require('express');
-//const cors = require('cors');
+const cors = require('cors');
 const app: express.Application = express();
+app.use(cors());
 
 const path = require('path');
 
@@ -15,7 +16,6 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 // Client-credential authorization
 var client_id = process.env.SPOTIFY_DEV_ID; // Your client id
 var client_secret = process.env.SPOTIFY_DEV_SECRET; // Your secret
-
 
 // Default profile type definitions
 interface DefaultProfile {
