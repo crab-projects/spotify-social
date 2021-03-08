@@ -20,7 +20,7 @@ const TitleSection = styled.div`
 `;
 
 const TopArtists = styled.div`
-// padding-left: 30px;
+  // padding-left: 30px;
 `;
 
 const TopArtistsTitle = styled.p``;
@@ -43,43 +43,49 @@ const ArtistNameBox = styled.div`
   justify-content: space-around;
 `;
 
-const ArtistName = styled.p`
-`;
+const ArtistName = styled.p``;
 
 export default function ProfileFeatured({ data }) {
   return (
     <FeaturedSection>
-      <Graph styleObj={{ width: '800px', height: '400px', float: 'left', paddingRight: '100px' }} />
+      <Graph
+        styleObj={{
+          width: '800px',
+          height: '400px',
+          float: 'left',
+          paddingRight: '100px',
+        }}
+      />
       <TopArtists>
         <TopArtistsTitle>Top Artists</TopArtistsTitle>
         <ArtistItem>
           <ArtistPicture src={logo} />
           <ArtistNameBox>
-            <ArtistName>Post Milan</ArtistName>
+            <ArtistName>{data.artists && data.artists[0]}</ArtistName>
           </ArtistNameBox>
         </ArtistItem>
         <ArtistItem>
           <ArtistPicture src={logo} />
           <ArtistNameBox>
-            <ArtistName>Mi Favor</ArtistName>
+            <ArtistName>{data.artists && data.artists[1]}</ArtistName>
           </ArtistNameBox>
         </ArtistItem>
         <ArtistItem>
           <ArtistPicture src={logo} />
           <ArtistNameBox>
-            <ArtistName>Los Boss</ArtistName>
+            <ArtistName>{data.artists && data.artists[2]}</ArtistName>
           </ArtistNameBox>
         </ArtistItem>
         <ArtistItem>
           <ArtistPicture src={logo} />
           <ArtistNameBox>
-            <ArtistName>Arist 4</ArtistName>
+            <ArtistName>{data.artists && data.artists[3]}</ArtistName>
           </ArtistNameBox>
         </ArtistItem>
         <ArtistItem>
           <ArtistPicture src={logo} />
           <ArtistNameBox>
-            <ArtistName>Soup du Jeure</ArtistName>
+            <ArtistName>{data.artists && data.artists[4]}</ArtistName>
           </ArtistNameBox>
         </ArtistItem>
       </TopArtists>

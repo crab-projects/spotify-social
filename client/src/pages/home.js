@@ -8,13 +8,13 @@ import { Button, ExternalLink, Layout, Profile } from 'components';
 export default function Home() {
   const [profileData, setProfileData] = React.useState({});
 
-  React.useEffect(() => {
-    getDefaultProfile('shidoarichimorin', setProfileData);
+  React.useEffect(async () => {
+    await getDefaultProfile('shidoarichimorin', setProfileData);
   }, []);
 
   return (
     <Layout>
-      <Profile data={profileData}/>
+      <Profile data={profileData} />
       <p>The home page.</p>
       <Link to="playlist">Go somewhere special, cutie.</Link>
       <Button>
